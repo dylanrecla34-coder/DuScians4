@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTPM - Dumaguete Science High School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #db7093;
+      --primary-light: #ff69b4;
+      --primary-soft: #ffe4e9;
+      --accent: #c71585;
+      --light: #fff0f5;
+      --dark: #333;
+      --green-accent: #98fb98;
+    }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { font-family: 'Open Sans', sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+
+    header { 
+      background: var(--primary-soft); 
+      color: #333; 
+      text-align: center; 
+      padding: 2rem 1rem; 
+      border-bottom: 4px solid var(--primary-light); 
+    }
+    header h1 { font-family: 'Roboto', sans-serif; color: var(--accent); margin-bottom: 0.5rem; }
+
+    nav { 
+      background: var(--primary); 
+      padding: 1rem; 
+      text-align: center; 
+    }
+    nav a { 
+      color: white; 
+      margin: 0 1.2rem; 
+      text-decoration: none; 
+      font-weight: 600; 
+      transition: all 0.3s ease; 
+    }
+    nav a:hover { color: #fff; transform: scale(1.1); text-shadow: 0 0 8px rgba(255,255,255,0.8); }
+
+    .hero {
+      background: linear-gradient(rgba(0, 51, 102, 0.35), rgba(0, 51, 102, 0.55)),
+                  url('https://learncon.depednir.net/Images/Schools/rtpm.webp') center/cover no-repeat fixed;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 4rem 1rem;
+      position: relative;
+    }
+
+    .hero-emblem {
+      max-width: 100px;
+      margin-bottom: 1.5rem;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(255,255,255,0.5);
+      animation: fadeIn 2s ease-in;
+    }
+
+    .school-title {
+      font-family: 'Roboto', sans-serif;
+      font-size: 3.8rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin: 0.5rem 0;
+      text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
+      color: white;
+    }
+
+    .motto {
+      font-size: 2.6rem;
+      font-style: italic;
+      font-weight: 700;
+      margin: 1rem 0 0.8rem;
+      color: var(--green-accent);
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    }
+
+    .tagline {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 0;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    .content-box {
+      background: white;
+      max-width: 1000px;
+      margin: 2rem auto;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(199,21,133,0.15);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .content-box:hover { transform: translateY(-8px); }
+    .box-header {
+      background: var(--accent);
+      color: white;
+      padding: 1.4rem;
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+    .box-content { padding: 2.5rem; }
+
+    /* Location – bigger white rectangle/box, smaller map inside */
+    .location-section {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .location-card {
+      background: white;
+      border-radius: 16px; /* slightly rounder corners for bigger feel */
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1.5rem; /* extra internal padding so white space is bigger around content */
+    }
+    .location-info {
+      flex: 1;
+      padding: 1.5rem;
+      min-width: 280px;
+    }
+    .location-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    .location-header .pin { font-size: 1.7rem; }
+    .location-info p {
+      margin: 0.6rem 0;
+      font-size: 0.95rem;
+    }
+    .location-info strong {
+      color: var(--accent);
+    }
+    .location-map {
+      flex: 1;
+      min-width: 280px;
+      position: relative;
+    }
+    .location-map iframe {
+      width: 100%;
+      height: 260px;  /* kept compact inside the bigger white box */
+      border: 0;
+      border-radius: 12px;
+    }
+    .open-maps-link {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #1a73e8;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+    .open-maps-link:hover { background: #0d65d6; }
+
+    .dual-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .dual-box {
+      flex: 1;
+      min-width: 300px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(199,21,133,0.15);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .dual-box:hover { transform: translateY(-8px); }
+    .dual-header {
+      background: var(--primary-light);
+      color: white;
+      padding: 1.2rem;
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .dual-content { padding: 2rem; }
+
+    .core-values-section {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .core-values-header {
+      background: var(--primary-light);
+      color: white;
+      padding: 1.2rem;
+      text-align: center;
+      font-size: 1.9rem;
+      font-weight: bold;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    .core-values-header::before {
+      content: "♥";
+      font-size: 2rem;
+      color: white;
+    }
+    .core-values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: -1rem;
+    }
+    .core-value-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(199,21,133,0.2);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .core-value-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(199,21,133,0.3);
+    }
+    .core-value-name {
+      padding: 1.3rem 1rem 0.6rem;
+      font-size: 1.45rem;
+      font-weight: bold;
+      min-height: 85px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    }
+    .core-value-desc {
+      padding: 1rem 1.2rem 1.3rem;
+      font-size: 1.05rem;
+      color: #444;
+      border-top: 1px solid #f0e0e8;
+    }
+
+    .core-value-name.maka-diyos { background: #ffccdd; color: #c2185b; }
+    .core-value-name.maka-tao { background: #ffc1e3; color: #ad1457; }
+    .core-value-name.makakalikasan { background: #ff9fc7; color: #b71c1c; }
+    .core-value-name.makabansa { background: #f8b8d9; color: #7b1fa2; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .gallery-grid img:hover { transform: scale(1.05); }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      nav a { display: block; margin: 0.8rem 0; }
+      .hero { min-height: 60vh; padding: 3rem 1rem; }
+      .school-title { font-size: 2.6rem; }
+      .motto { font-size: 2rem; }
+      .tagline { font-size: 1.2rem; }
+      .dual-boxes { flex-direction: column; gap: 1.5rem; }
+      .hero-emblem { max-width: 80px; }
+      .core-values-grid { grid-template-columns: 1fr; }
+      .location-card { flex-direction: column; }
+      .location-info { padding: 1rem; }
+      .location-map iframe { height: 240px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Ramon Teves Pastor Memorial - Dumaguete Science High School</h1>
+    <p>Regional Science High School for the Negros Island Region</p>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#vision">Vision & Mission</a>
+    <a href="#core-values">Core Values</a>
+    <a href="#location">Location</a>
+    <a href="#history">History</a>
+    <a href="#programs">Programs</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="home" class="hero">
+    <img src="https://i.imgur.com/YOUR_EMBLEM_DIRECT_LINK_HERE.png" 
+         alt="RTPM-DSHS Emblem" 
+         class="hero-emblem">
+
+    <h1 class="school-title">
+      Ramon Teves Pastor Memorial<br>
+      Dumaguete Science High School
+    </h1>
+
+    <h2 class="motto">Scientia et Vita</h2>
+
+    <p class="tagline">
+      Nurturing Future Scientists, Innovators and Leaders Since 1987
+    </p>
+  </section>
+
+  <section id="about">
+    <div class="content-box">
+      <div class="box-header">About Our School</div>
+      <div class="box-content">
+        <p>Ramon Teves Pastor Memorial - Dumaguete Science High School (RTPM-DSHS) is a public science high school in Dumaguete City, Philippines. It serves as the Regional Science High School for the Negros Island Region and is recognized by the Department of Education.</p>
+        <p>Located at Maria Asuncion Village, Barangay Daro, Dumaguete City, Negros Oriental. Our iconic pink uniforms represent unity, grace, and the vibrant spirit of our science scholars!</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="dual-boxes">
+    <div class="dual-box">
+      <div class="dual-header">Vision</div>
+      <div class="dual-content">
+        <p>We dream of Filipinos who passionately love their country and whose values and competencies enable them to realize their full potential and contribute meaningfully to building the nation. As a learner-centered public institution, the Department of Education continuously improves itself to better serve its stakeholders.</p>
+      </div>
+    </div>
+
+    <div class="dual-box">
+      <div class="dual-header">Mission</div>
+      <div class="dual-content">
+        <p>To protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic education where students learn in a child-friendly, gender-sensitive, safe, and motivating environment. Teachers facilitate learning and constantly nurture every learner.</p>
+      </div>
+    </div>
+  </div>
+
+  <section id="core-values" class="core-values-section">
+    <div class="core-values-header">Core Values</div>
+    <div class="core-values-grid">
+      <div class="core-value-card">
+        <div class="core-value-name maka-diyos">Maka-Diyos</div>
+        <div class="core-value-desc">God-fearing</div>
+      </div>
+      <div class="core-value-card">
+        <div class="core-value-name maka-tao">Maka-Tao</div>
+        <div class="core-value-desc">People-oriented</div>
+      </div>
+      <div class="core-value-card">
+        <div class="core-value-name makakalikasan">Makakalikasan</div>
+        <div class="core-value-desc">Nature-loving</div>
+      </div>
+      <div class="core-value-card">
+        <div class="core-value-name makabansa">Makabansa</div>
+        <div class="core-value-desc">Patriotic</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location – bigger white box, smaller map inside -->
+  <section id="location" class="location-section">
+    <div class="location-card">
+      <div class="location-info">
+        <div class="location-header">
+          <span class="pin">📍</span> Location
+        </div>
+        <p><strong>Address:</strong> Maria Asuncion Village, Daro, Dumaguete City, Negros Oriental, Philippines</p>
+        <p><strong>City:</strong> Dumaguete City - The City of Gentle People</p>
+        <p><strong>Region:</strong> Central Visayas (Region VII)</p>
+        <p style="margin-top: 1rem;">
+          <a href="https://www.google.com/maps/search/?api=1&query=RTPM-Dumaguete+Science+High+School" 
+             target="_blank" 
+             style="padding: 0.5rem 1rem; background: #1a73e8; color: white; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.85rem;">
+            Open in Maps ↗
+          </a>
+        </p>
+      </div>
+      <div class="location-map">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.849!2d123.299!3d9.317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33ab0f0a0a0a0a0a%3A0x0!2sRTPM-Dumaguete%20Science%20High%20School!5e0!3m2!1sen!2sph!4v1741392000000!5m2!1sen!2sph"
+          width="100%" 
+          height="260" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="history">
+    <div class="content-box">
+      <div class="box-header">Brief History</div>
+      <div class="box-content">
+        <p>The school opened its doors in June 1988 with DECS approval, offering a science-enriched curriculum for the first and second year levels. It was established to provide quality science and mathematics education to intellectually gifted students of Dumaguete City and Negros Oriental.</p>
+        <p>Named after the late Congressman Ramon Teves Pastor, it has grown into the premier science high school in the region, producing top achievers in national and regional competitions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs">
+    <div class="content-box">
+      <div class="box-header">Academic Programs</div>
+      <div class="box-content">
+        <h3>Junior High School (Grades 7–10)</h3>
+        <p>Advanced Mathematics, Integrated Science, Research, Computer Science, and more.</p>
+        
+        <h3>Senior High School – STEM Strand (Grades 11–12)</h3>
+        <p>General Physics, Chemistry, Pre-Calculus, Basic Calculus, Statistics, Research Project, etc.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="content-box">
+      <div class="box-header">Gallery & Achievements</div>
+      <div class="box-content">
+        <p>Explore our campus, events, and proud moments!</p>
+        <div class="gallery-grid">
+          <img src="https://learncon.depednir.net/Images/Schools/rtpm.webp" alt="School Building">
+          <img src="https://images.unsplash.com/photo-1580582932707-520aed4e9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Students in Class">
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Science Lab">
+        </div>
+        <p style="margin-top: 2rem;"><strong>Notable Achievements:</strong> Regional Science Fair winners, Math Olympiad medals, National Research Congress participants.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="content-box">
+      <div class="box-header">Contact Us</div>
+      <div class="box-content">
+        <p><strong>Address:</strong> Maria Asuncion Village, Barangay Daro, Dumaguete City, Negros Oriental</p>
+        <p><strong>Phone:</strong> (035) 225-3509 / (035) 523-4154</p>
+        <p><strong>Email:</strong> rtpmdshs@deped.gov.ph / 303169@deped.gov.ph</p>
+        <p>Follow us on Facebook: <a href="https://www.facebook.com/rtpmdshs" style="color: var(--accent);">RTPM-Dumaguete Science High School</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 RTPM - Dumaguete Science High School • Built with ❤️ by students</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
